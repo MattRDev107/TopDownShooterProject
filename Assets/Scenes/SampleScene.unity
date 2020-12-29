@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  radius: 5
+  radius: 2.25
   smoothTime: 1
 --- !u!20 &519420031
 Camera:
