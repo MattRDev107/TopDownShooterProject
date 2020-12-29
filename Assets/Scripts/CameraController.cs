@@ -5,17 +5,15 @@ using MoonlanderCode.TDS.Player;
 
 public class CameraController : MonoBehaviour {
 
-	[SerializeField] private float dampTime = 0.5f;
-	[SerializeField] private Vector3 velocity = Vector3.zero;
+    [SerializeField] private Transform parent;
+    [SerializeField] private float radius = 5.0f;
+	[SerializeField] private float smoothTime = 0.5f;
 
-	private float offset = -10.0f;
-
-	private PlayerController playerCon;
-	private Transform playerTrans;
+	private InputController input;
 
 	private void Start() {
-		playerCon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-		playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+		input = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().inputController;
+		parent = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 
 	private void FixedUpdate() {
@@ -23,9 +21,17 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void FollowBetweenPlayerCamera() {
-		Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(playerCon.inputController.MouseScreenPostion);
-		Vector3 target = playerTrans.position + mouseWorldPosition/2;
+		Vector3 mouseWorldPostion = Camera.main.ScreenToWorldPoint(input.MouseScreenPostion);
+		Vector3 mouseOffset = mouseWorldPostion - parent.position;
+		Vector3 target = new Vector3(mouseOffset.x / 2.0f + parent.position.x, mouseOffset.y / 2.0f + parent.position.y, transform.position.z);
 
-		transform.position = new Vector3(target.x, target.y, offset);
+		transform.position = Vector3.Lerp(transform.position, target, smoothTime);
+
+		//float Distance = Vector2.Distance((Vector2)transform.position, (Vector2)parent.position);
+
+		//if(Distance >= radius) {
+		//	Vector2 norm = mouseOffset.normalized;
+		//	transform.position = new Vector3(norm.x * radius + parent.position.x, norm.y * radius + parent.position.y, transform.position.z);
+		//}
 	}
 }

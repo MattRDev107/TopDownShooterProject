@@ -417,8 +417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ebfb52f1997044b90ea8ea9558061f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dampTime: 0.25
-  velocity: {x: 0, y: 0, z: 0}
+  parent: {fileID: 0}
+  radius: 5
+  smoothTime: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
