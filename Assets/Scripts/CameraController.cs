@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour {
     [SerializeField] private Transform parent;
     [SerializeField] private float radius = 2f;
 	[SerializeField] private float smoothTime = 0.5f;
+
 	private float distance;
 	private InputController input;
 
@@ -26,8 +27,6 @@ public class CameraController : MonoBehaviour {
 		Vector3 target = new Vector3(mouseOffset.x / 2.0f + parent.position.x, mouseOffset.y / 2.0f + parent.position.y, transform.position.z);
 
 		distance = Vector2.Distance((Vector2) target, (Vector2)parent.position);
-
-		//Debug.Log(distance);
 
 		if(distance >= radius) {
 			Vector2 norm = mouseOffset.normalized;
